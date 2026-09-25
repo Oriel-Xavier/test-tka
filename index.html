@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TKA Speed Test — Tes Kecepatan Mengisi</title>
+  <meta name="description" content="Simulasi tes kecepatan mengisi formulir seperti ujian TKA." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">T</div>
+        <div>
+          <strong>TKA SPEED TEST</strong>
+          <span>Practice • Accuracy • Speed</span>
+        </div>
+      </div>
+      <div class="status-pill" id="statusPill"><span></span> Siap dimulai</div>
+    </header>
+
+    <main>
+      <!-- START SCREEN -->
+      <section id="startScreen" class="screen active">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">SIMULASI UJIAN</div>
+            <h1>Seberapa cepat kamu bisa <em>mengisi</em> formulir?</h1>
+            <p class="lead">
+              Latih kecepatan, ketelitian, dan konsistensi kamu melalui simulasi
+              pengisian soal bergaya TKA.
+            </p>
+
+            <div class="feature-row">
+              <div class="feature"><b>01</b><span>Timer real-time</span></div>
+              <div class="feature"><b>02</b><span>Analisis per soal</span></div>
+              <div class="feature"><b>03</b><span>Skor & akurasi</span></div>
+            </div>
+          </div>
+
+          <div class="setup-card">
+            <div class="card-kicker">PENGATURAN TES</div>
+            <h2>Siapkan sesi kamu</h2>
+            <label for="candidateName">Nama peserta</label>
+            <input id="candidateName" type="text" maxlength="40" placeholder="Masukkan nama..." autocomplete="name" />
+
+            <label for="duration">Batas waktu</label>
+            <select id="duration">
+              <option value="300">5 menit</option>
+              <option value="600" selected>10 menit</option>
+              <option value="900">15 menit</option>
+              <option value="0">Tanpa batas waktu</option>
+            </select>
+
+            <div class="info-box">
+              <span>ⓘ</span>
+              <div>
+                <strong>20 soal simulasi</strong>
+                <p>Jawab secepat dan seteliti mungkin. Timer dimulai saat tombol ditekan.</p>
+              </div>
+            </div>
+
+            <button class="primary-btn" id="startBtn">Mulai Tes <span>→</span></button>
+            <p class="microcopy">Dengan memulai, kamu menyetujui sesi latihan ini berjalan secara lokal di browser.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TEST SCREEN -->
+      <section id="testScreen" class="screen">
+        <div class="exam-header">
+          <div>
+            <div class="eyebrow">SIMULASI TKA • SESI BERLANGSUNG</div>
+            <h2 id="greeting">Peserta</h2>
+          </div>
+          <div class="timer-box">
+            <span>WAKTU TERSISA</span>
+            <strong id="timer">10:00</strong>
+          </div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span id="progressText">Soal 1 dari 20</span>
+            <span id="answeredText">0 terjawab</span>
+          </div>
+          <div class="progress-track"><div id="progressBar"></div></div>
+        </div>
+
+        <div class="exam-layout">
+          <article class="question-card">
+            <div class="question-top">
+              <span class="question-number" id="questionNumber">01</span>
+              <span class="question-time" id="questionTime">0,0 detik</span>
+            </div>
+            <h3 id="questionText"></h3>
+            <div id="options" class="options"></div>
+
+            <div class="question-nav">
+              <button class="ghost-btn" id="prevBtn">← Sebelumnya</button>
+              <button class="primary-btn compact" id="nextBtn">Berikutnya →</button>
+            </div>
+          </article>
+
+          <aside class="navigator-card">
+            <div class="side-title">
+              <strong>Navigasi Soal</strong>
+              <span id="navCount">20</span>
+            </div>
+            <div id="questionNav" class="question-nav-grid"></div>
+
+            <div class="legend">
+              <div><i class="dot current"></i> Sedang dibuka</div>
+              <div><i class="dot answered"></i> Sudah dijawab</div>
+              <div><i class="dot empty"></i> Belum dijawab</div>
+            </div>
+
+            <button class="submit-btn" id="submitBtn">Kumpulkan Jawaban</button>
+          </aside>
+        </div>
+      </section>
+
+      <!-- RESULT SCREEN -->
+      <section id="resultScreen" class="screen">
+        <div class="result-head">
+          <div class="eyebrow">HASIL SIMULASI</div>
+          <h1 id="resultTitle">Tes selesai.</h1>
+          <p id="resultSubtitle"></p>
+        </div>
+
+        <div class="score-grid">
+          <div class="score-card main-score">
+            <span>SKOR AKHIR</span>
+            <strong id="score">0</strong>
+            <small>/ 100</small>
+          </div>
+          <div class="score-card">
+            <span>AKURASI</span>
+            <strong id="accuracy">0%</strong>
+            <small id="correctCount">0 benar</small>
+          </div>
+          <div class="score-card">
+            <span>KECEPATAN</span>
+            <strong id="speed">0</strong>
+            <small>soal/menit</small>
+          </div>
+          <div class="score-card">
+            <span>WAKTU</span>
+            <strong id="totalTime">0:00</strong>
+            <small>durasi pengerjaan</small>
+          </div>
+        </div>
+
+        <div class="result-layout">
+          <div class="analysis-card">
+            <div class="section-heading">
+              <div><span class="eyebrow">ANALISIS</span><h2>Performa kamu</h2></div>
+              <span id="performanceBadge" class="badge">Selesai</span>
+            </div>
+            <div class="metric">
+              <div><span>Ketepatan jawaban</span><b id="accuracyMetric">0%</b></div>
+              <div class="metric-track"><i id="accuracyBar"></i></div>
+            </div>
+            <div class="metric">
+              <div><span>Kecepatan pengerjaan</span><b id="speedMetric">0%</b></div>
+              <div class="metric-track"><i id="speedBar"></i></div>
+            </div>
+            <div class="metric">
+              <div><span>Soal terjawab</span><b id="answeredMetric">0 / 20</b></div>
+              <div class="metric-track"><i id="answeredBar"></i></div>
+            </div>
+          </div>
+
+          <div class="analysis-card">
+            <div class="section-heading">
+              <div><span class="eyebrow">RINGKASAN</span><h2>Perhatian</h2></div>
+            </div>
+            <ul id="summaryList" class="summary-list"></ul>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="primary-btn" id="retryBtn">Coba Lagi ↻</button>
+          <button class="ghost-btn" id="homeBtn">Kembali ke Beranda</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>© 2026 TKA Speed Test • Simulasi latihan lokal</footer>
+  </div>
+
+  <div id="confirmModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-icon">?</div>
+      <h3>Kumpulkan jawaban?</h3>
+      <p>Jawaban yang sudah dikumpulkan tidak dapat diubah. Pastikan kamu sudah mengisi soal yang ingin dijawab.</p>
+      <div class="modal-actions">
+        <button class="ghost-btn" id="cancelSubmit">Periksa Lagi</button>
+        <button class="primary-btn" id="confirmSubmit">Ya, Kumpulkan</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
